@@ -4,27 +4,238 @@
             "invocationName": "i'm taking marta",
             "intents": [
                 {
-                    "name": "AMAZON.FallbackIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.CancelIntent",
-                    "samples": []
-                },
-                {
                     "name": "AMAZON.HelpIntent",
                     "samples": []
                 },
                 {
-                    "name": "AMAZON.StopIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.NavigateHomeIntent",
-                    "samples": []
+                    "name": "GetTripDepartureTimeIntent",
+                    "slots": [
+                        {
+                            "name": "departure_station",
+                            "type": "LIST_OF_MARTA_STATIONS"
+                        },
+                        {
+                            "name": "destination_station",
+                            "type": "LIST_OF_MARTA_STATIONS"
+                        }
+                    ],
+                    "samples": [
+                        "i'm taking marta to {destination_station}"
+                    ]
                 }
             ],
-            "types": []
+            "types": [
+                {
+                    "name": "LIST_OF_MARTA_STATIONS",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "West Lake"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "West End"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Vine City"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Sandy Springs"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Peachtree Center"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Oakland City"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "North Springs"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "North Avenue"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Midtown"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Medical Center"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Lindbergh Center"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Lenox"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Lakewood Fort McPherson"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "King Memorial"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Kensington"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Inman Park Reynoldstown"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Indian Creek"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "H. E. Holmes"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Georgia State"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Garnett"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Edgewood-Candler Park"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "East Point"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "East Lake"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Dunwoody"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Doraville"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "CNN Center"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Phillips Arena"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Georgia World Congress Center"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Georgia Dome"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Decatur"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "College Park"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Civic Center"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Buckhead"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Brookhaven-Oglethrope"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Bankhead"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Avondale"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Ashby"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Arts Center"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Airport"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Five Points"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Chamblee"
+                            }
+                        }
+                    ]
+                }
+            ]
         }
     }
 }
