@@ -1,7 +1,7 @@
 {
     "interactionModel": {
         "languageModel": {
-            "invocationName": "i'm taking marta",
+            "invocationName": "train tracker",
             "intents": [
                 {
                     "name": "AMAZON.HelpIntent",
@@ -30,207 +30,199 @@
                     "values": [
                         {
                             "name": {
-                                "value": "West Lake"
+                                "value": "West Lake Station"
+                            }
+
+                        },
+                        {
+                            "name": {
+                                "value": "West End Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "West End"
+                                "value": "Vine City Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "Vine City"
+                                "value": "Sandy Springs Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "Sandy Springs"
+                                "value": "Peachtree Center Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "Peachtree Center"
+                                "value": "Oakland City Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "Oakland City"
+                                "value": "North Springs Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "North Springs"
+                                "value": "North Avenue Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "North Avenue"
+                                "value": "Midtown Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "Midtown"
+                                "value": "Medical Center Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "Medical Center"
+                                "value": "Lindbergh Center Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "Lindbergh Center"
+                                "value": "Lenox Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "Lenox"
+                                "value": "Lakewood Fort McPherson Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "Lakewood Fort McPherson"
+                                "value": "King Memorial Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "King Memorial"
+                                "value": "Kensington Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "Kensington"
+                                "value": "Inman Park Reynoldstown Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "Inman Park Reynoldstown"
+                                "value": "Indian Creek Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "Indian Creek"
+                                "value": "H. E. Holmes Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "H. E. Holmes"
+                                "value": "Georgia State Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "Georgia State"
+                                "value": "Garnett Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "Garnett"
+                                "value": "Edgewood-Candler Park Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "Edgewood-Candler Park"
+                                "value": "East Point Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "East Point"
+                                "value": "East Lake Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "East Lake"
+                                "value": "Dunwoody Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "Dunwoody"
+                                "value": "Doraville Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "Doraville"
+                                "value": "CNN Center Station",
+                                "synonyms": [
+                                    "Dome",
+                                    "G.W.C.C",
+                                    "Georgia World Congress Center",
+                                    "Phillips Arena"
+                                ]
                             }
                         },
                         {
                             "name": {
-                                "value": "CNN Center"
+                                "value": "Decatur Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "Phillips Arena"
+                                "value": "College Park Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "Georgia World Congress Center"
+                                "value": "Civic Center Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "Georgia Dome"
+                                "value": "Buckhead Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "Decatur"
+                                "value": "Brookhaven-Oglethrope Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "College Park"
+                                "value": "Bankhead Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "Civic Center"
+                                "value": "Avondale Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "Buckhead"
+                                "value": "Ashby Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "Brookhaven-Oglethrope"
+                                "value": "Arts Center Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "Bankhead"
+                                "value": "Airport Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "Avondale"
+                                "value": "Five Points Station"
                             }
                         },
                         {
                             "name": {
-                                "value": "Ashby"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "Arts Center"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "Airport"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "Five Points"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "Chamblee"
+                                "value": "Chamblee Station"
                             }
                         }
                     ]

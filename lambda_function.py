@@ -54,7 +54,7 @@ def get_welcome_response():
                     "say I'm taking MARTA to Five Points."
     # If the user either does not reply to the welcome message or says something
     # that is not understood, they will be prompted again with this text.
-    reprompt_text = "Please tell me about your trip.  For example, say I'm taking MARTA to Five Points."
+    reprompt_text = "Please tell me about your trip.  For example, say I'm going to Five Points."
     should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
@@ -69,27 +69,27 @@ def handle_session_end_request():
     return build_response({}, build_speechlet_response(
         card_title, speech_output, None, should_end_session))
 
-
 def get_departure_time(intent, session):
+    #ER_SUCCESS_MATCH
+    #ER_SUCCESS_NO_MATCH
     """
     Respond with the time the user should leave to catch the next Marta train to
     their destination train station
     """
     card_title = intent['name']
     session_attributes = {}
-    should_end_session = True
-    if 'destination_station' in intent['slots']:
-        destination_station = intent['slots']['destination_station']['value']
+    reprompt_text = "Say I am taking MARTA to Five Points station"
+    resolution = intent['slots']['destination_station']['resolutions']['resolutionsPerAuthority'][0]
+    if 'destination_station' in intent['slots'] and resolution['status']['code'] == 'ER_SUCCESS_MATCH':
+        destination_station = resolution['values'][0]['value']['name']
         speech_output = "You should leave by 9:19 PM to catch the next train " + \
                         "from Chamblee to " + destination_station + "."
-        reprompt_text = "Say I am taking MARTA to Five Points station"
+        should_end_session = True
     else:
-        speech_output = "I'm not sure where you are going. " + \
-                        "For example, tell me where you are going by saying " + \
-                        "I am taking MARTA to Five Points station"
+        speech_output = "Tell me where you going by saying, I'm going to Five Points Station"
+        should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
-
 
 # --------------- Events ------------------
 
