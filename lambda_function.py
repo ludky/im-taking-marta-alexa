@@ -69,28 +69,37 @@ def handle_session_end_request():
     return build_response({}, build_speechlet_response(
         card_title, speech_output, None, should_end_session))
 
-def get_departure_time(intent, session):
-    #ER_SUCCESS_MATCH
-    #ER_SUCCESS_NO_MATCH
+def get_train_arrival_by_destination(intent, session):
     """
-    Respond with the time the user should leave to catch the next Marta train to
-    their destination train station
+    Responds with the time the next train from departure station to destination station arrives
     """
     card_title = intent['name']
     session_attributes = {}
-    reprompt_text = "Say I am taking MARTA to Five Points station"
-    resolution = intent['slots']['destination_station']['resolutions']['resolutionsPerAuthority'][0]
-    if 'destination_station' in intent['slots'] and resolution['status']['code'] == 'ER_SUCCESS_MATCH':
-        destination_station = resolution['values'][0]['value']['name']
+    reprompt_text = "Ask when is the next train from departure station to destination station"
+    destination_station_resolution = intent['slots']['destination_station']['resolutions']['resolutionsPerAuthority'][0]
+    departure_station_resolution = intent['slots']['departure_station']['resolutions']['resolutionsPerAuthority'][0]
+    if does_resolution_match(destination_station_resolution) and does_resolution_match(departure_station_resolution):
+        destination_station = destination_station_resolution['values'][0]['value']['name']
+        departure_station = departure_station_resolution['values'][0]['value']['name']
         speech_output = "You should leave by 9:19 PM to catch the next train " + \
-                        "from Chamblee to " + destination_station + "."
+                        "from " + departure_station + " to " + destination_station + "."
         should_end_session = True
     else:
-        speech_output = "Tell me where you going by saying, I'm going to Five Points Station"
+        speech_output = reprompt_text
         should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
 
+
+def does_resolution_match(resolution):
+    """
+    :param resolution: Slot resolution
+    :return: true if slot successfully resolved, false otherwise
+    """
+    if resolution['status']['code'] == 'ER_SUCCESS_MATCH':
+        return True
+    else:
+        return False
 # --------------- Events ------------------
 
 def on_session_started(session_started_request, session):
@@ -121,8 +130,8 @@ def on_intent(intent_request, session):
     intent_name = intent_request['intent']['name']
 
     # Dispatch to your skill's intent handlers
-    if intent_name == "GetTripDepartureTimeIntent":
-        return get_departure_time(intent, session)
+    if intent_name == "GetTrainArrivalByDestinationIntent":
+        return get_train_arrival_by_destination(intent, session)
     elif intent_name == "AMAZON.HelpIntent":
         return get_welcome_response()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
