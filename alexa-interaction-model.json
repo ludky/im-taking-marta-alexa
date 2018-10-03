@@ -8,7 +8,7 @@
                     "samples": []
                 },
                 {
-                    "name": "GetTripDepartureTimeIntent",
+                    "name": "GetTrainArrivalByDestinationIntent",
                     "slots": [
                         {
                             "name": "departure_station",
@@ -20,8 +20,12 @@
                         }
                     ],
                     "samples": [
-                        "i'm taking marta to {destination_station}"
+                        "when is the next train from {departure_station} to {destination_station}"
                     ]
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
                 }
             ],
             "types": [
@@ -32,7 +36,6 @@
                             "name": {
                                 "value": "West Lake Station"
                             }
-
                         },
                         {
                             "name": {
