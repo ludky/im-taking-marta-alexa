@@ -22,7 +22,9 @@ Alexa skill for getting real-time Marta transit information.  Basic utterances s
 
 ### Packaging and deployment
 
-To deploy to development, run
+This project utilizes AWS CodeBuild and AWS CodePipeline to automatically build and deploy the application code.
+If for some reason the CI server isn't working and you'd like to deploy from local machine, you can run:
+  
 `./deploy_dev.sh`
 
 If a new Lambda function is created, you'll need to manually update the Alexa skill trigger.  Right now, the CF script

@@ -69,6 +69,7 @@ def handle_session_end_request():
     return build_response({}, build_speechlet_response(
         card_title, speech_output, None, should_end_session))
 
+
 def get_train_arrival_by_destination(intent, session):
     """
     Responds with the time the next train from departure station to destination station arrives
@@ -81,7 +82,7 @@ def get_train_arrival_by_destination(intent, session):
     if is_resolution_success_match(destination_station_resolution) and is_resolution_success_match(departure_station_resolution):
         destination_station = destination_station_resolution['values'][0]['value']['name']
         departure_station = departure_station_resolution['values'][0]['value']['name']
-        speech_output = "You should leave by 9:19 PM to catch the next train " + \
+        speech_output = "The next train to " + \
                         "from " + departure_station + " to " + destination_station + "."
         should_end_session = True
     else:
