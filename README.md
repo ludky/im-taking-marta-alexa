@@ -18,14 +18,15 @@ Alexa skill for getting real-time Marta transit information.  Basic utterances s
 - tests (unit tests)
 - deploy_dev.sh (deployment script)
 
-## Setup process
-
 ## Local development
 
 ### Packaging and deployment
 
 To deploy to development, run
 `./deploy_dev.sh`
+
+If a new Lambda function is created, you'll need to manually update the Alexa skill trigger.  Right now, the CF script
+does not do this.
 
 ### Testing
 
