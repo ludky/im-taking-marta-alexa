@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Alexa skill for Marta transit tracking
+Globals:
+    Function:
+        Timeout: 3
+Resources:
+    AlexaFunction:
+        Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+        Properties:
+            CodeUri: marta/build/
+            Handler: app.lambda_handler
+            Runtime: python3.6
+            Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
+                Variables:
+                    PARAM1: VALUE
+            Events:
+                Alexa:
+                    Type: AlexaSkill
+Outputs:
+    AlexaFunction:
+      Description: "Hello World Lambda Function ARN"
+      Value: !GetAtt AlexaFunction.Arn
+
+    AlexaFunctionRole:
+      Description: "Implicit IAM Role created for Hello World function"
+      Value: !GetAtt AlexaFunction.Arn
