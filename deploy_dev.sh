@@ -2,7 +2,7 @@
 #pip install -r requirements.txt -t marta/build/
 mkdir marta/build
 cp marta/*.py marta/build/
-sam package \
+aws cloudformation package \
     --template-file template.yaml \
     --output-template-file packaged.yaml \
     --s3-bucket im-taking-marta-deployments \
