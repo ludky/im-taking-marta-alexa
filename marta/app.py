@@ -83,7 +83,7 @@ def get_train_arrival_by_destination(intent, session):
         destination_station = destination_station_resolution['values'][0]['value']['name']
         departure_station = departure_station_resolution['values'][0]['value']['name']
         speech_output = "The next train to " + \
-                        "from " + departure_station + " to " + destination_station + "."
+                        "from " + departure_station + " to " + destination_station + " arrives in 15 minutes."
         should_end_session = True
     else:
         speech_output = reprompt_text

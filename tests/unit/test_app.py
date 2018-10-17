@@ -97,7 +97,7 @@ class GetTrainArrivalByDestinationSuccess(unittest.TestCase):
         ret = app.lambda_handler(event, "")
         response = ret['response']
         self.assertEquals(
-            "You should leave by 9:19 PM to catch the next train from Chamblee Station to Five Points Station.",
+            "The next train to from Chamblee Station to Five Points Station arrives in 15 minutes.",
             response['outputSpeech']['text'])
         self.assertTrue(response['shouldEndSession'])
 
