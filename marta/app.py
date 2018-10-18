@@ -9,8 +9,7 @@ http://amzn.to/1LGWsLG
 
 from __future__ import print_function
 
-from marta import api
-import os
+from . import api
 
 
 # --------------- Helpers that build all of the responses ----------------------
@@ -87,7 +86,7 @@ def get_train_arrival_by_destination(intent, session):
         destination_station = destination_station_resolution['values'][0]['value']['name']
         departure_station = departure_station_resolution['values'][0]['value']['name']
         trains = api.get_trains(line=None, station='Chamblee Station', destination=None,
-                                api_key=os.environ['MARTA_API_KEY'])
+                                api_key=None)
         for train in trains:
             print(train.station)
         speech_output = "The next train to " + \

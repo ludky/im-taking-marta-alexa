@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-#pip install -r requirements.txt -t marta/build/
 mkdir marta/build
 cp marta/*.py marta/build/
+pip install -r requirements.txt -t marta/build/
 aws cloudformation package \
     --template-file template.yaml \
     --output-template-file packaged.yaml \
