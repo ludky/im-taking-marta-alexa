@@ -4,6 +4,10 @@ Description: Alexa skill for Marta transit tracking
 Globals:
     Function:
         Timeout: 3
+Parameters:
+    MARTA_API_KEY:
+        Type: String
+        Description: API key for MARTA API authentication
 Resources:
     AlexaFunction:
         Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
@@ -13,7 +17,7 @@ Resources:
             Runtime: python3.6
             Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
                 Variables:
-                    PARAM1: VALUE
+                    MARTA_API_KEY: !Sub ${MARTA_API_KEY}
             Events:
                 Alexa:
                     Type: AlexaSkill

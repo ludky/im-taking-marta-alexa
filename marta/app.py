@@ -9,6 +9,9 @@ http://amzn.to/1LGWsLG
 
 from __future__ import print_function
 
+from marta import api
+import os
+
 
 # --------------- Helpers that build all of the responses ----------------------
 
@@ -79,11 +82,17 @@ def get_train_arrival_by_destination(intent, session):
     reprompt_text = "Ask when is the next train from departure station to destination station"
     destination_station_resolution = intent['slots']['destination_station']['resolutions']['resolutionsPerAuthority'][0]
     departure_station_resolution = intent['slots']['departure_station']['resolutions']['resolutionsPerAuthority'][0]
-    if is_resolution_success_match(destination_station_resolution) and is_resolution_success_match(departure_station_resolution):
+    if is_resolution_success_match(destination_station_resolution) and is_resolution_success_match(
+            departure_station_resolution):
         destination_station = destination_station_resolution['values'][0]['value']['name']
         departure_station = departure_station_resolution['values'][0]['value']['name']
+        trains = api.get_trains(line=None, station='Chamblee Station', destination=None,
+                                api_key=os.environ['MARTA_API_KEY'])
+        for train in trains:
+            print(train.station)
         speech_output = "The next train to " + \
-                        "from " + departure_station + " to " + destination_station + " arrives in 15 minutes."
+                        "from " + departure_station + " to " + destination_station + " arrives at " + \
+                        str(trains[0].next_arrival)
         should_end_session = True
     else:
         speech_output = reprompt_text
@@ -101,6 +110,8 @@ def is_resolution_success_match(resolution):
         return True
     else:
         return False
+
+
 # --------------- Events ------------------
 
 def on_session_started(session_started_request, session):
