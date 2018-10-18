@@ -9,7 +9,7 @@ http://amzn.to/1LGWsLG
 
 from __future__ import print_function
 
-from . import api
+import api
 
 
 # --------------- Helpers that build all of the responses ----------------------
