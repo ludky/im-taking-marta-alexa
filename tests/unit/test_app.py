@@ -1,12 +1,56 @@
 import unittest
-
-
+from mock import patch
 from marta import app
+from marta.vehicles import Train
+
+
+class InvokeSkill(unittest.TestCase):
+    @patch('marta.api.get_trains')
+    def test_invoke_skill_success(self, mock):
+        event = {
+            "version": "1.0",
+            "session": {
+                "new": True,
+                "sessionId": "amzn1.echo-api.session.de056596-afd9-4768-b5f7-f4f2545cbed8",
+                "application": {
+                    "applicationId": "amzn1.ask.skill.9b36b132-992c-4a6f-9985-26f1733ed25b"
+                },
+                "user": {
+                    "userId": "amzn1.ask.account.AGVOBA7FNAUG2L5SOXBHD7FIYPYPPWJMP6CXQSEBYDU5QYQPCVRZWIKFUM6NCEUNPTIMP6HMPPSXIJD3HK4K73ZDJ5BPBV775QSG5RPGHQOVTE7KQGSPFECBZWLFQX4NWOF62GZRJGAL72OWDJKTSO6GJ5NHV2HHB7ZTUCK6N3WOQC4MFKBSZASCSILZQVHDMJBE57XMT6FCEWQ"
+                }
+            },
+            "context": {
+                "System": {
+                    "application": {
+                        "applicationId": "amzn1.ask.skill.9b36b132-992c-4a6f-9985-26f1733ed25b"
+                    },
+                    "user": {
+                        "userId": "amzn1.ask.account.AGVOBA7FNAUG2L5SOXBHD7FIYPYPPWJMP6CXQSEBYDU5QYQPCVRZWIKFUM6NCEUNPTIMP6HMPPSXIJD3HK4K73ZDJ5BPBV775QSG5RPGHQOVTE7KQGSPFECBZWLFQX4NWOF62GZRJGAL72OWDJKTSO6GJ5NHV2HHB7ZTUCK6N3WOQC4MFKBSZASCSILZQVHDMJBE57XMT6FCEWQ"
+                    },
+                    "device": {
+                        "deviceId": "amzn1.ask.device.AEDSFL673DEPCNMPSN5J54IHE3XMXD574EPPEGFXYEY2ARMWBWMYEQ7I4GBYSSE5YDLFIZ6ULNRK2EYM3KH5YNAIB5OTZSARRFC4BJOA2BQNPZWZPH7VDDKNDCYL5MSPTCF2BGGMHIAINLJ32WY7CZQ7GIMU4WQCP24RICA6CXFWDEPRXU3BM",
+                        "supportedInterfaces": {}
+                    },
+                    "apiEndpoint": "https://api.amazonalexa.com",
+                    "apiAccessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjEifQ.eyJhdWQiOiJodHRwczovL2FwaS5hbWF6b25hbGV4YS5jb20iLCJpc3MiOiJBbGV4YVNraWxsS2l0Iiwic3ViIjoiYW16bjEuYXNrLnNraWxsLjliMzZiMTMyLTk5MmMtNGE2Zi05OTg1LTI2ZjE3MzNlZDI1YiIsImV4cCI6MTUzOTkxMTQ3OCwiaWF0IjoxNTM5OTA3ODc4LCJuYmYiOjE1Mzk5MDc4NzgsInByaXZhdGVDbGFpbXMiOnsiY29uc2VudFRva2VuIjpudWxsLCJkZXZpY2VJZCI6ImFtem4xLmFzay5kZXZpY2UuQUVEU0ZMNjczREVQQ05NUFNONUo1NElIRTNYTVhENTc0RVBQRUdGWFlFWTJBUk1XQldNWUVRN0k0R0JZU1NFNVlETEZJWjZVTE5SSzJFWU0zS0g1WU5BSUI1T1RaU0FSUkZDNEJKT0EyQlFOUFpXWlBIN1ZEREtORENZTDVNU1BUQ0YyQkdHTUhJQUlOTEozMldZN0NaUTdHSU1VNFdRQ1AyNFJJQ0E2Q1hGV0RFUFJYVTNCTSIsInVzZXJJZCI6ImFtem4xLmFzay5hY2NvdW50LkFHVk9CQTdGTkFVRzJMNVNPWEJIRDdGSVlQWVBQV0pNUDZDWFFTRUJZRFU1UVlRUENWUlpXSUtGVU02TkNFVU5QVElNUDZITVBQU1hJSkQzSEs0SzczWkRKNUJQQlY3NzVRU0c1UlBHSFFPVlRFN0tRR1NQRkVDQlpXTEZRWDROV09GNjJHWlJKR0FMNzJPV0RKS1RTTzZHSjVOSFYySEhCN1pUVUNLNk4zV09RQzRNRktCU1pBU0NTSUxaUVZIRE1KQkU1N1hNVDZGQ0VXUSJ9fQ.Operr0oQpTA7DhTkU4O0klTFbnzwxGL8WrrGVHMzxgx2Rc8fBWnowBh6mjNOwTvCyIUGHE1i_-KBpHE3dcE1GLFkjpWa5kYJx74DXFI1Ni7zY_zX0Q551ToQTUqw3sPRZ0Q1sVQxWVrZMhPqWjv9kfNv56S2Q_P0oSZx6kS_m8vhnxBk2YGz3PYM4Ucjemz2nl3YYW5fqM-9oNUE_VcT204bFWxAM4pN6EnIQauBik_zvl0Cp_ILpa8rE7fSjeVKEuWa0tIM0V3qImWHBf6vCn4k7-J33su-707PADNze-XfNZndmu22lpk1kI5SWreTK0eMpu9smn5hc-20bnajgQ"
+                }
+            },
+            "request": {
+                "type": "LaunchRequest",
+                "requestId": "amzn1.echo-api.request.0622fd17-1438-40b3-b513-e5f30e873143",
+                "timestamp": "2018-10-19T00:11:18Z",
+                "locale": "en-US",
+                "shouldLinkResultBeReturned": False
+            }
+        }
+        response = app.lambda_handler(event=event, context=None)
+        self.assertEquals("Welcome to I'm Taking Marta. say I'm taking MARTA to Five Points.", response['response']['outputSpeech']['text'])
 
 
 class GetTrainArrivalByDestinationSuccess(unittest.TestCase):
-
-    def test_get_train_arrival_success(self):
+    @patch('marta.api.get_trains')
+    def test_get_train_arrival_success(self, mock):
+        mock.return_value = create_mock_train_response()
         event = {
             "version": "1.0",
             "session": {
@@ -97,11 +141,13 @@ class GetTrainArrivalByDestinationSuccess(unittest.TestCase):
         ret = app.lambda_handler(event, "")
         response = ret['response']
         self.assertEquals(
-            "The next train to from Chamblee Station to Five Points Station arrives in 15 minutes.",
+            "The next train from Chamblee Station to Five Points Station arrives at 11:42:02",
             response['outputSpeech']['text'])
         self.assertTrue(response['shouldEndSession'])
 
-    def test_get_train_arrival_failure(self):
+    @patch('marta.api.get_trains')
+    def test_get_train_arrival_failure(self, mock):
+        mock.return_value = '10'
         event = {
             "version": "1.0",
             "session": {
@@ -191,5 +237,23 @@ class GetTrainArrivalByDestinationSuccess(unittest.TestCase):
         self.assertFalse(response['shouldEndSession'])
 
 
+def create_mock_train_response():
+    trains = []
+    train = Train
+    train.next_arrival = '11:42:02'
+    train.station = 'CHAMBLEE STATION'
+    train.destination = 'AIRPORT STATION'
+    train.direction = 'SOUTHBOUND'
+    train.last_updated = '11:42:02'
+    train.line = 'gold'
+    train.train_id = '1'
+    train.waiting_seconds = '2'
+    train.waiting_time = '11:42:02'
+
+    trains.append(train)
+    return trains
+
+
 if __name__ == '__main__':
     unittest.main()
+

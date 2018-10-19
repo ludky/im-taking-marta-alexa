@@ -85,11 +85,11 @@ def get_train_arrival_by_destination(intent, session):
             departure_station_resolution):
         destination_station = destination_station_resolution['values'][0]['value']['name']
         departure_station = departure_station_resolution['values'][0]['value']['name']
-        trains = api.get_trains(line=None, station='Chamblee Station', destination=None,
+        trains = api.get_trains(line=None, station=departure_station, destination=None,
                                 api_key=None)
         for train in trains:
             print(train.station)
-        speech_output = "The next train to " + \
+        speech_output = "The next train " + \
                         "from " + departure_station + " to " + destination_station + " arrives at " + \
                         str(trains[0].next_arrival)
         should_end_session = True
