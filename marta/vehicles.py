@@ -26,7 +26,6 @@ class Bus(Vehicle):
         self.vehicle = record.get('VEHICLE')
 
 
-
 class Train(Vehicle):
     def __init__(self, record):
         self.destination = record.get('DESTINATION')

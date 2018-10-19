@@ -2,23 +2,20 @@
 Marta API class courtesy of https://github.com/patricksanders.  Thanks!
 """
 import requests
-import requests_cache
 from json import loads
 from os import getenv
 from functools import wraps
 
-from .exceptions import APIKeyError
-from .vehicles import Bus, Train
+from exceptions import APIKeyError
+from vehicles import Bus, Train
 
 
 _API_KEY = getenv('MARTA_API_KEY')
-_CACHE_EXPIRE = int(getenv('MARTA_CACHE_EXPIRE', 30))
 _BASE_URL = 'http://developer.itsmarta.com'
 _TRAIN_PATH = '/RealtimeTrain/RestServiceNextTrain/GetRealtimeArrivals'
 _BUS_PATH = '/BRDRestService/RestBusRealTimeService/GetAllBus'
 _BUS_ROUTE_PATH = '/BRDRestService/RestBusRealTimeService/GetBusByRoute/'
 
-requests_cache.install_cache('marta_api_cache', backend='sqlite', expire_after=_CACHE_EXPIRE)
 
 
 def require_api_key(func):
