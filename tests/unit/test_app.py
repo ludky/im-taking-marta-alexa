@@ -44,7 +44,7 @@ class InvokeSkill(unittest.TestCase):
             }
         }
         response = app.lambda_handler(event=event, context=None)
-        self.assertEquals("Welcome to I'm Taking Marta. say I'm taking MARTA to Five Points.", response['response']['outputSpeech']['text'])
+        self.assertEquals("Welcome to Marta train tracker. Say when is the next train from Chamblee to Five Points", response['response']['outputSpeech']['text'])
 
 
 class GetTrainArrivalByDestinationSuccess(unittest.TestCase):
@@ -232,7 +232,7 @@ class GetTrainArrivalByDestinationSuccess(unittest.TestCase):
         ret = app.lambda_handler(event, "")
         response = ret['response']
         self.assertEquals(
-            "Ask when is the next train from departure station to destination station",
+            "Sorry, I didn't understand that. Ask when is the next train from Chamblee to Five Points",
             response['outputSpeech']['text'])
         self.assertFalse(response['shouldEndSession'])
 
