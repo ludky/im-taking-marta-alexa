@@ -80,16 +80,14 @@ def get_train_arrival_by_destination(intent, session):
     card_title = intent['name']
     session_attributes = {}
     reprompt_text = "Ask when is the next train from departure station to destination station"
-    destination_station_resolution = intent['slots']['destination_station']['resolutions']['resolutionsPerAuthority'][0]
-    departure_station_resolution = intent['slots']['departure_station']['resolutions']['resolutionsPerAuthority'][0]
+    destination_station_resolution = get_resolution(intent, 'destination_station')
+    departure_station_resolution = get_resolution(intent, 'departure_station')
     if is_resolution_success_match(destination_station_resolution) and is_resolution_success_match(
             departure_station_resolution):
-        destination_station = destination_station_resolution['values'][0]['value']['name']
-        departure_station = departure_station_resolution['values'][0]['value']['name']
+        destination_station = get_resolution_value(destination_station_resolution)
+        departure_station = get_resolution_value(departure_station_resolution)
         trains = api.get_trains(line=None, station=departure_station, destination=None,
                                 api_key=None)
-        for train in trains:
-            print(train.station)
         speech_output = "The next train " + \
                         "from " + departure_station + " to " + destination_station + " arrives at " + \
                         str(trains[0].next_arrival)
@@ -100,6 +98,14 @@ def get_train_arrival_by_destination(intent, session):
         should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
+
+
+def get_resolution_value(resolution):
+    return resolution['values'][0]['value']['name']
+
+
+def get_resolution(intent, slot_name):
+    return intent['slots'][slot_name]['resolutions']['resolutionsPerAuthority'][0]
 
 
 def is_resolution_success_match(resolution):

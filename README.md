@@ -1,24 +1,34 @@
 # I'm Taking MARTA Alexa Skill
 
-Alexa skill for getting real-time Marta transit information.  Basic utterances supported are:
-* Alexa, open train tracker
-* User: I'm taking Marta from Chamblee station to Five Points station
-* Alexa: Okay, the next train southbound train will depart from Chamblee station in 15 minutes
+## Objectives
+* Make taking public transit more convenient
+* Increase usage of public transit
+
+## Summary
+
+Alexa skill for getting real-time Marta transit information.  Basic intents supported are:
+
+* Get next train arrival times by departure station and destination
+* Get next train arrival times by departure station, direction, and line
+* Get next train arrival times by departure station 
+
+## Basic usage
+* Alexa, ask train tracker: when is the next train from Chamblee to Five Points?
+* Alexa: The next train from Chamblee station to Five Points station will arrive at 08:14:09.
 
 
-## Requirements
+## Developer resources
+### Requirements
 
 * AWS CLI already configured with at least PowerUser permission
 * [Python 3 installed](https://www.python.org/downloads/)
 * [Docker installed](https://www.docker.com/community-edition)
 * [Python Virtual Environment](http://docs.python-guide.org/en/latest/dev/virtualenvs/)
 
-## Structure
+### Structure
 - marta (app directory)
 - tests (unit tests)
 - deploy_dev.sh (deployment script)
-
-## Local development
 
 ### Packaging and deployment
 

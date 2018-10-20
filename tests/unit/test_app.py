@@ -6,8 +6,7 @@ import json
 
 
 class InvokeSkill(unittest.TestCase):
-    @patch('marta.api.get_trains')
-    def test_invoke_skill_success(self, mock):
+    def test_invoke_skill_success(self):
         event = load_json_from_file('invocation.json')
         response = app.lambda_handler(event=event, context=None)
         self.assertEquals("Welcome to Marta train tracker. Say when is the next train from Chamblee to Five Points", response['response']['outputSpeech']['text'])
