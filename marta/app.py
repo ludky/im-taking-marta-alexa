@@ -13,7 +13,7 @@ import api
 
 
 # --------------- Helpers that build all of the responses ----------------------
-from marta.vehicles import Train
+from .vehicles import Train
 
 
 def build_speechlet_response(title, output, reprompt_text, should_end_session):
