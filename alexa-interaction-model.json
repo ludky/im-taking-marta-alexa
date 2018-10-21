@@ -17,9 +17,18 @@
                         {
                             "name": "destination_station",
                             "type": "LIST_OF_MARTA_STATIONS"
+                        },
+                        {
+                            "name": "direction",
+                            "type": "TRAIN_DIRECTION"
+                        },
+                        {
+                            "name": "color",
+                            "type": "TRAIN_COLOR"
                         }
                     ],
                     "samples": [
+                        "when is the next {direction} train leaving from {departure_station}",
                         "when is the next train from {departure_station} to {destination_station}"
                     ]
                 },
@@ -226,6 +235,57 @@
                         {
                             "name": {
                                 "value": "Chamblee Station"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "TRAIN_DIRECTION",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "N",
+                                "synonyms": [
+                                    "north",
+                                    "northbound"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "S",
+                                "synonyms": [
+                                    "southbound",
+                                    "south"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "TRAIN_COLOR",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "blue"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "gold",
+                                "synonyms": [
+                                    "yellow"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "red"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "green"
                             }
                         }
                     ]
