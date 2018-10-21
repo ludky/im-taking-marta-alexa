@@ -1,3 +1,4 @@
+#This file defines the project packaging process to be performed by AWS CodeBuild service
 version: 0.2
 phases:
   build:

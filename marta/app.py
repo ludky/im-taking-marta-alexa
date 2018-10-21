@@ -13,6 +13,8 @@ import api
 
 
 # --------------- Helpers that build all of the responses ----------------------
+from marta.vehicles import Train
+
 
 def build_speechlet_response(title, output, reprompt_text, should_end_session):
     return {
@@ -73,31 +75,50 @@ def handle_session_end_request():
         card_title, speech_output, None, should_end_session))
 
 
-def get_train_arrival_by_destination(intent, session):
+def get_train_arrival_by_direction(intent, session):
     """
     Responds with the time the next train from departure station to destination station arrives
     """
     card_title = intent['name']
     session_attributes = {}
-    reprompt_text = "Ask when is the next train from departure station to destination station"
-    destination_station_resolution = get_resolution(intent, 'destination_station')
+    reprompt_text = "Ask when does the next southbound train arrive at Chamblee Station"
     departure_station_resolution = get_resolution(intent, 'departure_station')
-    if is_resolution_success_match(destination_station_resolution) and is_resolution_success_match(
-            departure_station_resolution):
-        destination_station = get_resolution_value(destination_station_resolution)
+    direction_resolution = get_resolution(intent, 'direction')
+    if is_resolution_success_match(departure_station_resolution) and is_resolution_success_match(direction_resolution):
         departure_station = get_resolution_value(departure_station_resolution)
         trains = api.get_trains(line=None, station=departure_station, destination=None,
                                 api_key=None)
-        speech_output = "The next train " + \
-                        "from " + departure_station + " to " + destination_station + " arrives at " + \
-                        str(trains[0].next_arrival)
-        should_end_session = True
+        direction_raw = get_resolution_value(direction_resolution)
+        trains = filter(lambda train: train.direction == direction_raw, trains)
+        direction = Train.DIRECTIONS[direction_raw]
+        if len(trains) < 1:
+            speech_output = 'Sorry, I couldn\'nt find any ' + direction + ' trains arriving at ' + departure_station
+            should_end_session = True
+        else:
+            if len(trains) == 1:
+                speech_output = 'The next ' + direction + ' train arrives at ' + departure_station + ' at ' + \
+                                str(trains[0].next_arrival)
+            else:
+                speech_output = 'The next ' + direction + ' trains arrive at ' + departure_station + ' at ' + \
+                                str(trains[0].next_arrival)
+                speech_output = build_multitrain_response(speech_output, trains)
+            should_end_session = True
     else:
         speech_output = "Sorry, I didn't understand that. Ask when is the next train from Chamblee " \
                         "to Five Points"
         should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
+
+
+def build_multitrain_response(speech_output, trains):
+    for i in range(1, len(trains)):
+        print(trains[i].next_arrival)
+        if i > 0 and i == len(trains) - 1:
+            speech_output += ' and ' + str(trains[i].next_arrival)
+        else:
+            speech_output += ', ' + str(trains[i].next_arrival)
+    return speech_output
 
 
 def get_resolution_value(resolution):
@@ -150,7 +171,7 @@ def on_intent(intent_request, session):
 
     # Dispatch to your skill's intent handlers
     if intent_name == "GetTrainArrivalByDestinationIntent":
-        return get_train_arrival_by_destination(intent, session)
+        return get_train_arrival_by_direction(intent, session)
     elif intent_name == "AMAZON.HelpIntent":
         return get_welcome_response()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":

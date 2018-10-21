@@ -27,6 +27,8 @@ class Bus(Vehicle):
 
 
 class Train(Vehicle):
+    DIRECTIONS = {'S': 'southbound', 'N': 'northbound', 'E': 'eastbound', 'W': 'westbound'}
+
     def __init__(self, record):
         self.destination = record.get('DESTINATION')
         self.direction = record.get('DIRECTION')
