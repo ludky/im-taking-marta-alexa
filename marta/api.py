@@ -6,7 +6,7 @@ from json import loads
 from os import getenv
 from functools import wraps
 
-from exceptions import APIKeyError
+from exceptions import *
 from vehicles import Bus, Train
 
 

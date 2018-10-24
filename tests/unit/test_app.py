@@ -1,7 +1,7 @@
 import unittest
 from mock import patch
 from marta import app
-from marta.vehicles import Train, Vehicle
+from marta.vehicles import Train
 import json
 
 
