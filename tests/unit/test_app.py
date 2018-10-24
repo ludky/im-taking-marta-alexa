@@ -13,7 +13,7 @@ class InvokeSkill(unittest.TestCase):
                           response['response']['outputSpeech']['text'])
 
 
-class GetTrainArrivalByDestinationSuccess(unittest.TestCase):
+class GetTrainArrivalByDirection(unittest.TestCase):
     @patch('marta.api.get_trains')
     def test_get_train_arrival_one_train(self, mock):
         mock.return_value = create_mock_train_response()
