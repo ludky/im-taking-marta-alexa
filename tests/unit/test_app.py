@@ -9,7 +9,8 @@ class InvokeSkill(unittest.TestCase):
     def test_invoke_skill_success(self):
         event = load_json_from_file('invocation.json')
         response = app.lambda_handler(event=event, context=None)
-        self.assertEquals("Welcome to Marta train tracker. Say when is the next train from Chamblee to Five Points",
+        self.assertEquals("Welcome to Marta train tracker. Say when is the next northbound train leaving from Five "
+                          "Points station",
                           response['response']['outputSpeech']['text'])
 
 
@@ -21,7 +22,7 @@ class GetTrainArrivalByDirection(unittest.TestCase):
         ret = app.lambda_handler(event, "")
         response = ret['response']
         self.assertEquals(
-            "The next southbound train arrives at Chamblee Station at 11:42:02",
+            "The next southbound train arrives at Chamblee Station at 11:42 PM",
             response['outputSpeech']['text'])
         self.assertTrue(response['shouldEndSession'])
 
@@ -32,7 +33,7 @@ class GetTrainArrivalByDirection(unittest.TestCase):
         ret = app.lambda_handler(event, "")
         response = ret['response']
         self.assertEquals(
-            "The next southbound trains arrive at Chamblee Station at 11:42:02 and 11:53:02",
+            "The next southbound trains arrive at Chamblee Station at 11:42 PM and 11:53 PM",
             response['outputSpeech']['text'])
         self.assertTrue(response['shouldEndSession'])
 
@@ -43,7 +44,7 @@ class GetTrainArrivalByDirection(unittest.TestCase):
         ret = app.lambda_handler(event, "")
         response = ret['response']
         self.assertEquals(
-            "Sorry, I didn't understand that. Ask when is the next train from Chamblee to Five Points",
+            "Sorry, I didn't understand that. Say when is the next northbound train leaving from Five Points station",
             response['outputSpeech']['text'])
         self.assertFalse(response['shouldEndSession'])
 

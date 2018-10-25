@@ -55,11 +55,11 @@ def get_welcome_response():
     session_attributes = {}
     card_title = "Welcome"
     speech_output = "Welcome to Marta train tracker. " + \
-                    "Say when is the next train from Chamblee to Five Points"
+                    "Say when is the next northbound train leaving from Five Points station"
     # If the user either does not reply to the welcome message or says something
     # that is not understood, they will be prompted again with this text.
-    reprompt_text = "Please tell me about your trip.  For example, say when is the next train from Chamblee " \
-                    "to Five Points."
+    reprompt_text = "Please tell me about your trip.  For example, say when is the next northbound train leaving " \
+                    "from Five Points station"
     should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
@@ -93,31 +93,35 @@ def get_train_arrival_by_direction(intent, session):
         direction = Train.DIRECTIONS[direction_raw]
         if len(trains) < 1:
             speech_output = 'Sorry, I couldn\'nt find any ' + direction + ' trains arriving at ' + departure_station
-            should_end_session = True
         else:
             if len(trains) == 1:
                 speech_output = 'The next ' + direction + ' train arrives at ' + departure_station + ' at ' + \
-                                str(trains[0].next_arrival)
+                                format_arrival_time(trains[0].next_arrival)
             else:
                 speech_output = 'The next ' + direction + ' trains arrive at ' + departure_station + ' at ' + \
-                                str(trains[0].next_arrival)
+                                format_arrival_time(trains[0].next_arrival)
                 speech_output = build_multitrain_response(speech_output, trains)
             should_end_session = True
     else:
-        speech_output = "Sorry, I didn't understand that. Ask when is the next train from Chamblee " \
-                        "to Five Points"
+        speech_output = "Sorry, I didn't understand that. Say when is the next northbound train leaving from Five " \
+                        "Points station"
         should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
+
+
+# Drop seconds from train arrival time.
+def format_arrival_time(arrival_time):
+    return arrival_time.strftime('%I:%M %p')
 
 
 def build_multitrain_response(speech_output, trains):
     for i in range(1, len(trains)):
         print(trains[i].next_arrival)
         if i > 0 and i == len(trains) - 1:
-            speech_output += ' and ' + str(trains[i].next_arrival)
+            speech_output += ' and ' + format_arrival_time(trains[i].next_arrival)
         else:
-            speech_output += ', ' + str(trains[i].next_arrival)
+            speech_output += ', ' + format_arrival_time(trains[i].next_arrival)
     return speech_output
 
 
