@@ -11,25 +11,24 @@
                     "name": "GetTrainArrivalByDestinationIntent",
                     "slots": [
                         {
-                            "name": "departure_station",
-                            "type": "LIST_OF_MARTA_STATIONS"
-                        },
-                        {
-                            "name": "destination_station",
-                            "type": "LIST_OF_MARTA_STATIONS"
-                        },
-                        {
                             "name": "direction",
                             "type": "TRAIN_DIRECTION"
                         },
                         {
                             "name": "color",
                             "type": "TRAIN_COLOR"
+                        },
+                        {
+                            "name": "departure_station",
+                            "type": "LIST_OF_MARTA_STATIONS"
                         }
                     ],
                     "samples": [
-                        "when is the next {direction} train leaving from {departure_station}",
-                        "when is the next train from {departure_station} to {destination_station}"
+                        "when does the next {direction} train arrive at {departure_station}",
+                        "next {direction} train from {departure_station}",
+                        "when is the next {direction} train from {departure_station}",
+                        "when is the next {direction} train arriving at {departure_station}",
+                        "when is the next {direction} train leaving from {departure_station}"
                     ]
                 },
                 {
@@ -242,6 +241,24 @@
                 {
                     "name": "TRAIN_DIRECTION",
                     "values": [
+                        {
+                            "name": {
+                                "value": "W",
+                                "synonyms": [
+                                    "westbound",
+                                    "west"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "E",
+                                "synonyms": [
+                                    "eastbound",
+                                    "east"
+                                ]
+                            }
+                        },
                         {
                             "name": {
                                 "value": "N",
