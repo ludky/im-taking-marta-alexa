@@ -1,20 +1,9 @@
-# I'm Taking MARTA Alexa Skill
+# MARTA Train Tracker Alexa Skill
 
-## Objectives
-* Make taking public transit more convenient
-* Increase usage of public transit
+### Basic usage
 
-## Summary
-
-Alexa skill for getting real-time Marta transit information.  Basic intents supported are:
-
-* Get next train arrival times by departure station and destination
-* Get next train arrival times by departure station, direction, and line
-* Get next train arrival times by departure station 
-
-## Basic usage
-* Alexa, ask train tracker: when is the next train from Chamblee to Five Points?
-* Alexa: The next train from Chamblee station to Five Points station will arrive at 08:14:09.
+* Alexa, ask train tracker when is the next southbound train arriving at Five Points?
+* Alexa: The next southbound trains arrive at Five Points Station at 06:55 PM, 07:01 PM and 07:08 PM.
 
 
 ## Developer resources
