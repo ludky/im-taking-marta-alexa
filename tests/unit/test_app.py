@@ -9,7 +9,7 @@ class InvokeSkillIntent(unittest.TestCase):
     def test_invoke_skill_success(self):
         event = load_json_from_file('invocation/invocation.json')
         response = app.lambda_handler(event=event, context=None)
-        self.assertEquals("Welcome to This is Marta." + \
+        self.assertEqual("Welcome to This is Marta." + \
                           "Say I'm taking Marta to Five Points station or say I took Marta to Five Points.",
                           response['response']['outputSpeech']['text'])
 
@@ -21,7 +21,7 @@ class SaveHomeTrainStationIntent(unittest.TestCase):
         event = load_json_from_file('home_station/save_home_train_station.json')
         ret = app.lambda_handler(event, "")
         response = ret['response']
-        self.assertEquals(
+        self.assertEqual(
             "Your home train station is now Chamblee Station.",
             response['outputSpeech']['text'])
         self.assertFalse(response['shouldEndSession'])
@@ -34,7 +34,7 @@ class GetHomeTrainStationIntent(unittest.TestCase):
         event = load_json_from_file('home_station/get_home_train_station.json')
         ret = app.lambda_handler(event, "")
         response = ret['response']
-        self.assertEquals(
+        self.assertEqual(
             "Your home train station is Chamblee Station.",
             response['outputSpeech']['text'])
         self.assertFalse(response['shouldEndSession'])
@@ -45,7 +45,7 @@ class GetHomeTrainStationIntent(unittest.TestCase):
         event = load_json_from_file('home_station/get_home_train_station.json')
         ret = app.lambda_handler(event, "")
         response = ret['response']
-        self.assertEquals(
+        self.assertEqual(
             "You have no home train station.  Say my home station is Five Points Station.",
             response['outputSpeech']['text'])
         self.assertFalse(response['shouldEndSession'])
@@ -77,8 +77,27 @@ class GetHomeTrainStationIntent(unittest.TestCase):
 
 
 def load_json_from_file(filename):
-    with open('requests/' + filename) as jsonFile:
+    test_resources_relative_path = get_test_resources_relative_path()
+    with open(test_resources_relative_path + 'requests/' + filename) as jsonFile:
         return json.load(jsonFile)
+
+
+'''
+Gets test resources relative path based on the name of this file at run time.  This allows tests to be run from any
+directory in the project.
+'''
+
+
+def get_test_resources_relative_path():
+    test_resources_relative_path = str(__name__).split('.')
+    print(test_resources_relative_path)
+    test_resources_relative_path = str.join("/", test_resources_relative_path[0:len(test_resources_relative_path) - 1])
+    print(test_resources_relative_path)
+    if test_resources_relative_path is not "":
+        test_resources_relative_path += "/"
+    return test_resources_relative_path
+
+
 #
 #
 # def create_mock_train_response():
