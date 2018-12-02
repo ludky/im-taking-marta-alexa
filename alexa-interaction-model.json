@@ -8,30 +8,6 @@
                     "samples": []
                 },
                 {
-                    "name": "GetTrainArrivalByDestinationIntent",
-                    "slots": [
-                        {
-                            "name": "direction",
-                            "type": "TRAIN_DIRECTION"
-                        },
-                        {
-                            "name": "color",
-                            "type": "TRAIN_COLOR"
-                        },
-                        {
-                            "name": "departure_station",
-                            "type": "LIST_OF_MARTA_STATIONS"
-                        }
-                    ],
-                    "samples": [
-                        "when does the next {direction} train arrive at {departure_station}",
-                        "next {direction} train from {departure_station}",
-                        "when is the next {direction} train from {departure_station}",
-                        "when is the next {direction} train arriving at {departure_station}",
-                        "when is the next {direction} train leaving from {departure_station}"
-                    ]
-                },
-                {
                     "name": "AMAZON.NavigateHomeIntent",
                     "samples": []
                 }
