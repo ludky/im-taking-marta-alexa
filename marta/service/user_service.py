@@ -1,7 +1,7 @@
 import boto3
 import os
 
-session = boto3.Session(profile_name='imtakingmarta')
+session = boto3.Session()
 dynamodb = session.resource('dynamodb')
 if 'USER_TABLE_NAME' in os.environ:
     table_name = os.environ['USER_TABLE_NAME']
