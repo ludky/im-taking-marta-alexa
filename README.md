@@ -31,4 +31,7 @@ does not do this.
 
 ### Testing
 
-This project uses the Python unittest library.  Run unit tests in `tests/unit`
+This project uses the Python unittest library.  From root directory, run 
+```bash
+python -m unittest discover -v
+```
