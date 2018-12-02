@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: Alexa skill for Marta transit tracking
+Description: Alexa skill for Marta transit users
 Globals:
   Function:
     Timeout: 3
@@ -16,22 +16,30 @@ Outputs:
       Fn::GetAtt:
       - AlexaFunction
       - Arn
-Parameters:
-  MartaApiKey:
-    Description: API key for MARTA API authentication
-    Type: String
 Resources:
   AlexaFunction:
     Properties:
-      CodeUri: s3://im-taking-marta-deployments/ace378e24268efe16361b14c057a6490
+      CodeUri: s3://im-taking-marta-deployments/4cac7bb459cc75b32a81925fa9358628
       Environment:
         Variables:
-          MARTA_API_KEY:
-            Fn::Sub: ${MartaApiKey}
+          USER_TABLE_NAME:
+            Ref: UserTable
       Events:
         Alexa:
           Type: AlexaSkill
       Handler: app.lambda_handler
       Runtime: python2.7
     Type: AWS::Serverless::Function
+  UserTable:
+    Properties:
+      AttributeDefinitions:
+      - AttributeName: userId
+        AttributeType: S
+      KeySchema:
+      - AttributeName: userId
+        KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+    Type: AWS::DynamoDB::Table
 Transform: AWS::Serverless-2016-10-31
