@@ -8,7 +8,7 @@ Resources:
     AlexaFunction:
         Type: 'AWS::Serverless::Function'
         Properties:
-            CodeUri: marta/build/
+            CodeUri: build/
             Handler: app.lambda_handler
             Runtime: python3.6
             Environment:
