@@ -10,7 +10,7 @@ class InvokeSkillIntent(unittest.TestCase):
     def test_invoke_skill_success(self):
         event = load_json_from_file('invocation/invocation.json')
         response = app.lambda_handler(event=event, context=None)
-        self.assertEqual("Welcome to This is Marta. " + \
+        self.assertEqual("Welcome to This is Marta. " +
                          "Say I'm taking Marta to Five Points station or say I took Marta to Five Points.",
                          response['response']['outputSpeech']['text'])
 

@@ -1,9 +1,21 @@
-# MARTA Train Tracker Alexa Skill
+# This is Marta
+
+Alexa skill encouraging usage of Marta train transit through gamification
 
 ### Basic usage
 
-* Alexa, ask train tracker when is the next southbound train arriving at Five Points?
-* Alexa: The next southbound trains arrive at Five Points Station at 06:55 PM, 07:01 PM and 07:08 PM.
+Open the skill
+> Alexa, open this is Marta
+
+Set your home train station
+> My home station is Chamblee
+
+Get your home station
+> What is my home station?
+
+Declare a train trip
+> Coming soon!
+
 
 
 ## Developer resources
@@ -17,7 +29,6 @@
 ### Structure
 - marta (app directory)
 - tests (unit tests)
-- deploy_dev.sh (deployment script)
 
 ### Packaging and deployment
 
