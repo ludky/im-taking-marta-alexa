@@ -61,6 +61,31 @@ def get_welcome_response():
         card_title, speech_output, reprompt_text, should_end_session))
 
 
+def save_home_train_station(intent=None):
+    session_attributes = {}
+    card_title = "Save Home Train Station"
+    should_end_session = False
+    reprompt_text = "I didn't understand that, set your home train station by saying My home station is Five Points"
+
+    resolution = get_resolution(intent, 'station')
+    is_valid_request = is_resolution_success_match(resolution)
+    if is_valid_request:
+        speech_output = "Your home train station is now " + get_resolution_value(resolution) + "."
+    else:
+        speech_output = "I didn't understand that, set your home train station by saying My home station is Five " \
+                        "Points. "
+    return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
+
+
+def get_home_train_station():
+    session_attributes = {}
+    card_title = "Get Home Train Station"
+    should_end_session = False
+    reprompt_text = "I didn't understand that, get your home train station by saying what is my home station?"
+    speech_output = "Your home train station is Chamblee Station."
+    return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
+
+
 def handle_session_end_request():
     card_title = "Session Ended"
     speech_output = "Thank you for trying the Alexa Skills Kit sample. " \
@@ -120,7 +145,11 @@ def on_intent(intent_request, session):
     intent_name = intent_request['intent']['name']
 
     # Dispatch to your skill's intent handlers
-    if intent_name == "AMAZON.HelpIntent":
+    if intent_name == "SaveHomeTrainStationIntent":
+        return save_home_train_station(intent)
+    elif intent_name == "GetHomeTrainStationIntent":
+        return get_home_train_station()
+    elif intent_name == "AMAZON.HelpIntent":
         return get_welcome_response()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
         return handle_session_end_request()

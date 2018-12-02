@@ -5,26 +5,36 @@ import json
 from marta import app
 
 
-class InvokeSkill(unittest.TestCase):
+class InvokeSkillIntent(unittest.TestCase):
     def test_invoke_skill_success(self):
-        event = load_json_from_file('invocation.json')
+        event = load_json_from_file('invocation/invocation.json')
         response = app.lambda_handler(event=event, context=None)
         self.assertEquals("Welcome to This is Marta." + \
                           "Say I'm taking Marta to Five Points station or say I took Marta to Five Points.",
                           response['response']['outputSpeech']['text'])
-#
-#
-# class GetTrainArrivalByDirection(unittest.TestCase):
-#     @patch('marta.api.get_trains')
-#     def test_get_train_arrival_one_train(self, mock):
-#         mock.return_value = create_mock_train_response()
-#         event = load_json_from_file('get_train_arrival_by_direction.json')
-#         ret = app.lambda_handler(event, "")
-#         response = ret['response']
-#         self.assertEquals(
-#             "The next southbound train arrives at Chamblee Station at 11:42 PM",
-#             response['outputSpeech']['text'])
-#         self.assertTrue(response['shouldEndSession'])
+
+
+class SaveHomeTrainStationIntent(unittest.TestCase):
+    def test_save_home_train_station(self):
+        event = load_json_from_file('home_station/save_home_train_station.json')
+        ret = app.lambda_handler(event, "")
+        response = ret['response']
+        self.assertEquals(
+            "Your home train station is now Chamblee Station.",
+            response['outputSpeech']['text'])
+        self.assertFalse(response['shouldEndSession'])
+
+
+class GetHomeTrainStationIntent(unittest.TestCase):
+    def test_get_home_train_station(self):
+        event = load_json_from_file('home_station/get_home_train_station.json')
+        ret = app.lambda_handler(event, "")
+        response = ret['response']
+        self.assertEquals(
+            "Your home train station is Chamblee Station.",
+            response['outputSpeech']['text'])
+        self.assertFalse(response['shouldEndSession'])
+
 #
 #     @patch('marta.api.get_trains')
 #     def test_get_train_arrival_two_trains(self, mock):
@@ -49,6 +59,8 @@ class InvokeSkill(unittest.TestCase):
 #         self.assertFalse(response['shouldEndSession'])
 #
 #
+
+
 def load_json_from_file(filename):
     with open('requests/' + filename) as jsonFile:
         return json.load(jsonFile)
