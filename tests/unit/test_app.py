@@ -6,6 +6,10 @@ from marta import app
 
 
 class InvokeSkillIntent(unittest.TestCase):
+
+    def test_should_fail(self):
+        self.fail()
+
     def test_invoke_skill_success(self):
         event = load_json_from_file('invocation/invocation.json')
         response = app.lambda_handler(event=event, context=None)
