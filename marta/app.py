@@ -52,7 +52,7 @@ def get_welcome_response():
 
     session_attributes = {}
     card_title = "Welcome"
-    speech_output = "Welcome to This is Marta." + \
+    speech_output = "Welcome to This is Marta. " + \
                     "Say I'm taking Marta to Five Points station or say I took Marta to Five Points."
     # If the user either does not reply to the welcome message or says something
     # that is not understood, they will be prompted again with this text.

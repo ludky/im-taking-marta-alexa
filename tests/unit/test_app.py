@@ -9,9 +9,9 @@ class InvokeSkillIntent(unittest.TestCase):
     def test_invoke_skill_success(self):
         event = load_json_from_file('invocation/invocation.json')
         response = app.lambda_handler(event=event, context=None)
-        self.assertEqual("Welcome to This is Marta." + \
-                          "Say I'm taking Marta to Five Points station or say I took Marta to Five Points.",
-                          response['response']['outputSpeech']['text'])
+        self.assertEqual("Welcome to This is Marta. " + \
+                         "Say I'm taking Marta to Five Points station or say I took Marta to Five Points.",
+                         response['response']['outputSpeech']['text'])
 
 
 class SaveHomeTrainStationIntent(unittest.TestCase):
@@ -49,6 +49,7 @@ class GetHomeTrainStationIntent(unittest.TestCase):
             "You have no home train station.  Say my home station is Five Points Station.",
             response['outputSpeech']['text'])
         self.assertFalse(response['shouldEndSession'])
+
 
 #
 #     @patch('marta.api.get_trains')
