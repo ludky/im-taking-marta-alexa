@@ -17,6 +17,9 @@ Resources:
             Events:
                 Alexa:
                     Type: 'AlexaSkill'
+            Policies:
+                - DynamoDBCrudPolicy:
+                    TableName: !Ref UserTable
     UserTable:
         Type: 'AWS::DynamoDB::Table'
         Properties:
