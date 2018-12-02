@@ -11,6 +11,7 @@ from __future__ import print_function
 
 
 # --------------- Helpers that build all of the responses ----------------------
+from marta.service import user_service
 
 
 def build_speechlet_response(title, output, reprompt_text, should_end_session):
@@ -61,7 +62,7 @@ def get_welcome_response():
         card_title, speech_output, reprompt_text, should_end_session))
 
 
-def save_home_train_station(intent=None):
+def save_home_train_station(intent, session):
     session_attributes = {}
     card_title = "Save Home Train Station"
     should_end_session = False
@@ -70,19 +71,27 @@ def save_home_train_station(intent=None):
     resolution = get_resolution(intent, 'station')
     is_valid_request = is_resolution_success_match(resolution)
     if is_valid_request:
-        speech_output = "Your home train station is now " + get_resolution_value(resolution) + "."
+        station = get_resolution_value(resolution)
+        user_service.save_user({'userId': session['user']['userId'], 'homeTrainStation': station})
+        speech_output = "Your home train station is now " + station + "."
     else:
         speech_output = "I didn't understand that, set your home train station by saying My home station is Five " \
-                        "Points. "
+                        "Points Station. "
     return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
 
 
-def get_home_train_station():
+def get_home_train_station(session):
     session_attributes = {}
     card_title = "Get Home Train Station"
     should_end_session = False
     reprompt_text = "I didn't understand that, get your home train station by saying what is my home station?"
-    speech_output = "Your home train station is Chamblee Station."
+
+    user = user_service.get_user(session['user']['userId'])
+    if user is None:
+        speech_output = "You have no home train station.  Say my home station is Five Points Station."
+    else:
+        station = user['homeTrainStation']
+        speech_output = "Your home train station is " + station + "."
     return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
 
 
@@ -146,9 +155,9 @@ def on_intent(intent_request, session):
 
     # Dispatch to your skill's intent handlers
     if intent_name == "SaveHomeTrainStationIntent":
-        return save_home_train_station(intent)
+        return save_home_train_station(intent, session)
     elif intent_name == "GetHomeTrainStationIntent":
-        return get_home_train_station()
+        return get_home_train_station(session)
     elif intent_name == "AMAZON.HelpIntent":
         return get_welcome_response()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":

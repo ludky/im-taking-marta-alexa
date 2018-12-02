@@ -15,7 +15,9 @@ class InvokeSkillIntent(unittest.TestCase):
 
 
 class SaveHomeTrainStationIntent(unittest.TestCase):
-    def test_save_home_train_station(self):
+    @patch('marta.service.user_service.save_user')
+    def test_save_home_train_station(self, mock):
+        mock.return_value = None
         event = load_json_from_file('home_station/save_home_train_station.json')
         ret = app.lambda_handler(event, "")
         response = ret['response']
@@ -26,12 +28,25 @@ class SaveHomeTrainStationIntent(unittest.TestCase):
 
 
 class GetHomeTrainStationIntent(unittest.TestCase):
-    def test_get_home_train_station(self):
+    @patch('marta.service.user_service.get_user')
+    def test_get_home_train_station(self, mock):
+        mock.return_value = {'userId': 'aclifford', 'homeTrainStation': 'Chamblee Station'}
         event = load_json_from_file('home_station/get_home_train_station.json')
         ret = app.lambda_handler(event, "")
         response = ret['response']
         self.assertEquals(
             "Your home train station is Chamblee Station.",
+            response['outputSpeech']['text'])
+        self.assertFalse(response['shouldEndSession'])
+
+    @patch('marta.service.user_service.get_user')
+    def test_get_home_train_station_not_set(self, mock):
+        mock.return_value = None
+        event = load_json_from_file('home_station/get_home_train_station.json')
+        ret = app.lambda_handler(event, "")
+        response = ret['response']
+        self.assertEquals(
+            "You have no home train station.  Say my home station is Five Points Station.",
             response['outputSpeech']['text'])
         self.assertFalse(response['shouldEndSession'])
 
