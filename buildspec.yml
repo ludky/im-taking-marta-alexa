@@ -5,10 +5,9 @@ phases:
     commands:
     - pip install -r requirements.txt
     - python -m unittest discover -v
-    - mkdir marta/build
-    - cp marta/*.py marta/build/
-    - cp -R marta/service marta/build/
-    - pip install -r requirements.txt -t marta/build/
+    - mkdir build
+    - cp -R marta build
+    - pip install -r requirements.txt -t build
     - aws cloudformation package --template-file template.yaml --output-template-file packaged.yaml --s3-bucket im-taking-marta-deployments
 artifacts:
   type: zip
