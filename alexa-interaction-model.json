@@ -35,6 +35,8 @@
                         }
                     ],
                     "samples": [
+                        "My home train station is {station}",
+                        "My home station is {station}",
                         "Set my home train station to {station} ",
                         "Set my home station to {station}"
                     ]
@@ -49,6 +51,14 @@
                         "What is my home train station",
                         "What is my home station"
                     ]
+                },
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
                 }
             ],
             "types": [
