@@ -10,6 +10,45 @@
                 {
                     "name": "AMAZON.NavigateHomeIntent",
                     "samples": []
+                },
+                {
+                    "name": "RecordTripIntent",
+                    "slots": [
+                        {
+                            "name": "destination_station",
+                            "type": "LIST_OF_MARTA_STATIONS"
+                        }
+                    ],
+                    "samples": [
+                        "I took Marta to {destination_station}",
+                        "I took the train to {destination_station}",
+                        "I'm taking the train to {destination_station}",
+                        "I'm taking Marta to {destination_station}"
+                    ]
+                },
+                {
+                    "name": "SaveHomeTrainStationIntent",
+                    "slots": [
+                        {
+                            "name": "station",
+                            "type": "LIST_OF_MARTA_STATIONS"
+                        }
+                    ],
+                    "samples": [
+                        "Set my home train station to {station} ",
+                        "Set my home station to {station}"
+                    ]
+                },
+                {
+                    "name": "GetHomeTrainStationIntent",
+                    "slots": [],
+                    "samples": [
+                        "What is my home station set to",
+                        "Where is my home station",
+                        "Where is my home train station",
+                        "What is my home train station",
+                        "What is my home station"
+                    ]
                 }
             ],
             "types": [
