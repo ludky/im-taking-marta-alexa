@@ -77,7 +77,7 @@ class GetHomeTrainStationIntent(unittest.TestCase):
 
 
 def load_json_from_file(filename):
-    with open('requests/' + filename) as jsonFile:
+    with open('tests/unit/requests/' + filename) as jsonFile:
         return json.load(jsonFile)
 #
 #
