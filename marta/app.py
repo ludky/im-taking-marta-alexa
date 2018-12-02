@@ -11,7 +11,7 @@ from __future__ import print_function
 
 
 # --------------- Helpers that build all of the responses ----------------------
-from service import user_service
+from marta.service import user_service
 
 
 def build_speechlet_response(title, output, reprompt_text, should_end_session):

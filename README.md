@@ -33,5 +33,5 @@ does not do this.
 
 This project uses the Python unittest library.  From root directory, run 
 ```bash
-python -m unittest discover -v
+python3 -m unittest discover -v
 ```

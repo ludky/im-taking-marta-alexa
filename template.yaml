@@ -10,7 +10,7 @@ Resources:
         Properties:
             CodeUri: marta/build/
             Handler: app.lambda_handler
-            Runtime: python2.7
+            Runtime: python3.6
             Environment:
                 Variables:
                     USER_TABLE_NAME: !Ref UserTable
