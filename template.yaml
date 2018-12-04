@@ -4,6 +4,9 @@ Description: Alexa skill for Marta transit users
 Globals:
     Function:
         Timeout: 3
+Parameters:
+    GoogleApiKey:
+        Type: String
 Resources:
     AlexaFunction:
         Type: 'AWS::Serverless::Function'
@@ -14,6 +17,7 @@ Resources:
             Environment:
                 Variables:
                     USER_TABLE_NAME: !Ref UserTable
+                    GOOGLE_API_KEY: !Ref GoogleApiKey
             Events:
                 Alexa:
                     Type: 'AlexaSkill'
