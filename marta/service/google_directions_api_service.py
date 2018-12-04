@@ -2,7 +2,6 @@ import googlemaps
 import os
 from datetime import datetime
 
-# TODO: Externalize this API key
 gmaps_client = googlemaps.Client(key=os.environ['GOOGLE_API_KEY'])
 
 
