@@ -31,7 +31,7 @@ class SaveHomeTrainStationIntent(unittest.TestCase):
 class GetHomeTrainStationIntent(unittest.TestCase):
     @patch('marta.service.user_service.get_user')
     def test_get_home_train_station(self, mock):
-        mock.return_value = {'userId': 'aclifford', 'homeTrainStation': 'Chamblee Station'}
+        mock.return_value = mock_get_home_station_response()
         event = load_json_from_file('home_station/get_home_train_station.json')
         ret = app.lambda_handler(event, "")
         response = ret['response']
@@ -52,30 +52,36 @@ class GetHomeTrainStationIntent(unittest.TestCase):
         self.assertFalse(response['shouldEndSession'])
 
 
-#
-#     @patch('marta.api.get_trains')
-#     def test_get_train_arrival_two_trains(self, mock):
-#         mock.return_value = create_mock_two_train_response()
-#         event = load_json_from_file('get_train_arrival_by_direction.json')
-#         ret = app.lambda_handler(event, "")
-#         response = ret['response']
-#         self.assertEquals(
-#             "The next southbound trains arrive at Chamblee Station at 11:42 PM and 11:53 PM",
-#             response['outputSpeech']['text'])
-#         self.assertTrue(response['shouldEndSession'])
-#
-#     @patch('marta.api.get_trains')
-#     def test_get_train_arrival_failure(self, mock):
-#         mock.return_value = '10'
-#         event = load_json_from_file('get_train_arrival_by_direction_failure.json')
-#         ret = app.lambda_handler(event, "")
-#         response = ret['response']
-#         self.assertEquals(
-#             "Sorry, I didn't understand that. Say when is the next northbound train leaving from Five Points station",
-#             response['outputSpeech']['text'])
-#         self.assertFalse(response['shouldEndSession'])
-#
-#
+class RecordTripIntent(unittest.TestCase):
+
+    @patch('marta.service.user_service.get_user')
+    @patch('marta.service.google_directions_api_service.get_directions')
+    def test_record_trip_and_get_gas_savings(self, directions_mock, home_station_mock):
+        directions_mock.return_value = self.mock_get_directions_response()
+        home_station_mock.return_value = mock_get_home_station_response()
+        event = load_json_from_file('record_trip/record_trip.json')
+        ret = app.lambda_handler(event, "")
+        response = ret['response']
+        self.assertEqual(
+            "You saved $1.15 on gas.",
+            response['outputSpeech']['text'])
+        self.assertTrue(response['shouldEndSession'])
+
+    @staticmethod
+    def mock_get_directions_response():
+        return [
+            {"legs": [
+                {
+                    "distance": {
+                        "text": "11.8 mi"
+                    }
+                }
+            ]}
+        ]
+
+
+def mock_get_home_station_response():
+    return {'userId': 'aclifford', 'homeTrainStation': 'Chamblee Station'}
 
 
 def load_json_from_file(filename):

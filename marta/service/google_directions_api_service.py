@@ -2,7 +2,10 @@ import googlemaps
 import os
 from datetime import datetime
 
-gmaps_client = googlemaps.Client(key=os.environ['GOOGLE_API_KEY'])
+if 'GOOGLE_API_KEY' in os.environ:
+    gmaps_client = googlemaps.Client(key=os.environ['GOOGLE_API_KEY'])
+else:
+    print("Google API service initialized without USER_TABLE_NAME environment variable, only expected in unit tests.")
 
 
 def get_directions(origin, destination):
@@ -16,6 +19,7 @@ def get_directions(origin, destination):
 
 def get_directions_total_distance(directions_result):
     # All legs of trip
+    print(directions_result)
     legs = directions_result[0]["legs"]
     # Distance in miles
     distance = 0

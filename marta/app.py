@@ -12,6 +12,7 @@ from __future__ import print_function
 
 # --------------- Helpers that build all of the responses ----------------------
 from marta.service import user_service
+from marta.service import savings_service
 
 
 def build_speechlet_response(title, output, reprompt_text, should_end_session):
@@ -95,6 +96,26 @@ def get_home_train_station(session):
     return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
 
 
+# Records a train trip that was taken or that is about to be taken by the user.
+# TODO: This should save a record to a database for more advanced analytics
+def record_trip_intent(intent, session):
+    session_attributes = {}
+    card_title = "Record a trip"
+    should_end_session = True
+    reprompt_text = "I didn't understand that, say you took a trip to Five Points."
+
+    resolution = get_resolution(intent, 'destination_station')
+    is_valid_request = is_resolution_success_match(resolution)
+    if is_valid_request:
+        home_station = user_service.get_user(session['user']['userId'])
+        destination_station = get_resolution_value(resolution)
+        dollar_savings = savings_service.get_dollar_savings_for_trip(home_station, destination_station)
+        speech_output = "You saved " + dollar_savings + " on gas."
+    else:
+        speech_output = "I didn't understand that, say you took a trip to Five Points."
+    return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
+
+
 def handle_session_end_request():
     card_title = "Session Ended"
     speech_output = "Thank you for using This is Marta."
@@ -143,6 +164,7 @@ def on_launch(launch_request, session):
     return get_welcome_response()
 
 
+
 def on_intent(intent_request, session):
     """ Called when the user specifies an intent for this skill """
 
@@ -157,6 +179,8 @@ def on_intent(intent_request, session):
         return save_home_train_station(intent, session)
     elif intent_name == "GetHomeTrainStationIntent":
         return get_home_train_station(session)
+    elif intent_name == "RecordTripIntent":
+        return record_trip_intent(intent, session)
     elif intent_name == "AMAZON.HelpIntent":
         return get_welcome_response()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":

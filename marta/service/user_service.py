@@ -7,7 +7,7 @@ if 'USER_TABLE_NAME' in os.environ:
     table_name = os.environ['USER_TABLE_NAME']
     table = dynamodb.Table(table_name)
 else:
-    print("Service initialized without USER_TABLE_NAME environment variable, only expected in unit tests.")
+    print("User service initialized without USER_TABLE_NAME environment variable, only expected in unit tests.")
 
 
 def get_user(user_id):
