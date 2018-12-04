@@ -107,7 +107,7 @@ def record_trip_intent(intent, session):
     resolution = get_resolution(intent, 'destination_station')
     is_valid_request = is_resolution_success_match(resolution)
     if is_valid_request:
-        home_station = user_service.get_user(session['user']['userId'])
+        home_station = user_service.get_user(session['user']['userId'])['homeTrainStation']
         destination_station = get_resolution_value(resolution)
         dollar_savings = savings_service.get_dollar_savings_for_trip(home_station, destination_station)
         speech_output = "You saved " + dollar_savings + " on gas."
