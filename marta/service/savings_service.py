@@ -1,6 +1,6 @@
 from marta.service import google_directions_api_service as directions_service
 
-# TODO: Make these dynamic / real-time
+# TODO: Make these dynamic/real-time
 dollars_per_gallon_gas = 2.40
 avg_miles_per_gallon = 24.7
 
